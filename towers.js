@@ -48,8 +48,8 @@ HanoiGame.prototype.print = function () {
 
 HanoiGame.prototype.promptMove = function (callback) {
   this.print();
-  reader.question("Enter the tower you wish to move from, then tower you wish \
-    to move to (e.g. '1,2')", function(moves) {
+  reader.question("Enter the tower you wish to move from, then tower you wish" +
+    " to move to (e.g. '1,2')", function(moves) {
     moves = moves.split(",");
     callback(moves[0], moves[1]);
   });
