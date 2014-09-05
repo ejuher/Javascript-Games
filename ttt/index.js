@@ -1,4 +1,6 @@
 module.exports = {
   Board: require("./board"),
-  Game: require("./game")
+  Game: require("./game"),
+  HumanPlayer: require("./humanPlayer"),
+  ComputerPlayer: require("./computerPlayer")
 };

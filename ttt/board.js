@@ -13,10 +13,10 @@ Board.prototype.winner = function () {
   var syms = ["X", "O"];
   for (var i = 0; i < syms.length; i++) {
     if(this.checkCols(syms[i]) ||
-       this.checkRows(syms[i]) ||
-       this.checkDiags(syms[i])) {
-         return syms[i];
-     }
+          this.checkRows(syms[i]) ||
+          this.checkDiags(syms[i])) {
+      return syms[i];
+    }
   }
   return null;
 };
@@ -24,8 +24,8 @@ Board.prototype.winner = function () {
 Board.prototype.checkCols = function (mark) {
   for (var col = 0; col < 3; col++) {
     if (this.rows[0][col] === mark &&
-    this.rows[1][col] === mark &&
-    this.rows[2][col] === mark) {
+          this.rows[1][col] === mark &&
+          this.rows[2][col] === mark) {
       return true;
     }
   }
@@ -35,8 +35,8 @@ Board.prototype.checkCols = function (mark) {
 Board.prototype.checkRows = function (mark) {
   for (var row = 0; row < 3; row++) {
     if (this.rows[row][0] === mark &&
-    this.rows[row][1] === mark &&
-    this.rows[row][2] === mark) {
+          this.rows[row][1] === mark &&
+          this.rows[row][2] === mark) {
       return true;
     }
   }

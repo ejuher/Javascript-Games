@@ -1,27 +1,32 @@
 var Board = require("./board");
 
-var Game = function (reader) {
+var Game = function (reader, player1, player2) {
   this.board = new Board();
-  this.currentPlayer = 'X';
+  this.player1 = player1;
+  this.player2 = player2;
+  this.player1.mark = 'X';
+  this.player2.mark = 'O';
+  this.currentPlayer = this.player1;
   this.reader = reader;
 };
 
 Game.prototype.nextTurn = function () {
-  this.currentPlayer = (this.currentPlayer === 'X' ? 'O' : 'X');
+  this.currentPlayer = (this.currentPlayer === this.player1 ? 
+    this.player2 : this.player1);
 };
 
 Game.prototype.run = function (completionCallback) {
   var that = this;
   
   this.promptMove( function (pos) {
-    if (!that.board.placeMark(pos, that.currentPlayer)) {
+    if (!that.board.placeMark(pos, that.currentPlayer.mark)) {
       console.log("FLAGRANT SYSTEM ERROR ABORT ABORT ABORT!!!!");
     }
     if (!that.board.isWon()) {
       that.nextTurn();
       that.run(completionCallback);
     } else {
-      console.log('WINNER === YOU');
+      console.log('WINNER === ' + that.currentPlayer.name);
       completionCallback();
     }
   });
@@ -29,13 +34,8 @@ Game.prototype.run = function (completionCallback) {
 
 Game.prototype.promptMove = function (callback) {
   this.board.print();
-  console.log("It is now " + this.currentPlayer + "'s turn.");
-  this.reader.question("Enter the coordinates where you want to move" + 
-  " (e.g. 'row,col')", function(pos) {
-    pos = pos.split(",");
-    pos = pos.map(Number);
-    callback(pos);
-  });
+  console.log("It is now " + this.currentPlayer.name + "'s turn.");
+  this.currentPlayer.move(this.reader, this.board, callback);
 };
 
 module.exports = Game;
