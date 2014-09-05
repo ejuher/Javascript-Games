@@ -6,12 +6,12 @@ var Board = function () {
 };
 
 Board.prototype.isWon = function () {
-  !!this.winner();
+  return !!this.winner();
 };
 
 Board.prototype.winner = function () {
   var syms = ["X", "O"];
-  for (var i; i < syms.length; i++) {
+  for (var i = 0; i < syms.length; i++) {
     if(this.checkCols(syms[i]) ||
        this.checkRows(syms[i]) ||
        this.checkDiags(syms[i])) {
@@ -27,6 +27,7 @@ Board.prototype.checkCols = function (mark) {
     this.rows[1][col] === mark &&
     this.rows[2][col] === mark) {
       return true;
+    }
   }
   return false;
 };
@@ -37,6 +38,7 @@ Board.prototype.checkRows = function (mark) {
     this.rows[row][1] === mark &&
     this.rows[row][2] === mark) {
       return true;
+    }
   }
   return false;
 };
@@ -55,7 +57,7 @@ Board.prototype.checkDiags = function (mark) {
 };
 
 Board.prototype.isEmpty = function (pos) {
-  return this.rows[pos[0]][pos[1]] === null;
+  return this.rows[pos[0]][pos[1]] === undefined;
 };
 
 Board.prototype.placeMark = function (pos, mark) {
@@ -70,10 +72,8 @@ Board.prototype.placeMark = function (pos, mark) {
 Board.prototype.print = function() {
   for (var i = 0; i < 3; i++) {
     var rowString = JSON.stringify(this.rows[i]);
-    console.log(rowString.replace(/null/g, ' '));
+    console.log(rowString.replace(/null/g, '   '));
   }
-}
+};
 
-board = new Board();
-
-board.print();
+module.exports = Board;
