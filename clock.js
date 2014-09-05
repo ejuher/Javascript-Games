@@ -21,9 +21,7 @@ Clock.prototype.run = function () {
   this.printTime();
   
   var that = this;
-  setTimeout( function () {
-    that._tick();
-  }, Clock.TICK);
+  setInterval(this._tick.bind(this), Clock.TICK);
 };
 
 Clock.prototype._tick = function () {
@@ -31,11 +29,6 @@ Clock.prototype._tick = function () {
   // 2. Call printTime.
   this.currentTime += Clock.TICK;
   this.printTime();
-  
-  var that = this;
-  setTimeout( function () {
-    that._tick();
-  }, Clock.TICK);
 };
 
 clock = new Clock();
